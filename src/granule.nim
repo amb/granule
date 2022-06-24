@@ -1,17 +1,16 @@
-import std/[net, strutils]
+import std/[net, strutils], flatty, flatty/binny, arraymancer, sequtils
 
 when isMainModule:
-  let server = newSocket()
-  server.bindAddr(Port(1234))
-  server.listen()
+  var tens = randomTensor[float32](64, 32, 1'f32)
+  # echo tens.shape
+  # echo tens.strides
+  # echo tens.offset
+  doAssert tens.offset == 0
 
-  let info = server.getLocalAddr()
-  echo "Running server at ", info[0], ':', int(info[1])
-
-  var client: Socket = new(Socket)
-  server.accept(client)
-  client.send("Hello, world.\n\r")
-  var i = client.recvLine()
-  client.send(i.toUpperAscii())
-  client.send("\n\rGoodbye.\n\r")
-
+  var flattybin = tens.toFlatty()
+  var result = flattybin.fromFlatty(Tensor[float32])
+  # echo result.shape, ", ", tens.shape
+  doAssert result == tens
+  doAssert result.shape == tens.shape
+  # echo result[_..5, 0]
+  # echo tens[_..5, 0]
