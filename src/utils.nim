@@ -1,4 +1,4 @@
-import std/[net, strutils], flatty, flatty/binny, arraymancer, sequtils
+import flatty/binny, arraymancer, sequtils
 
 proc toFlatty*[T](s: var string, x: Tensor[T]) =
   if x.size == 0:
