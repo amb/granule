@@ -6,7 +6,7 @@ when isMainModule:
   server.listen()
 
   let info = server.getLocalAddr()
-  echo "Running server at ", info[0], ':', int(info[1])
+  # echo "Running server at ", info[0], ':', int(info[1])
 
   # var client: Socket = new(Socket)
   # server.accept(client)
